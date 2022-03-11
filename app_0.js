@@ -10,43 +10,44 @@ const bodyParser = require('body-parser') // Add Body Parser
 // 3 - Create app constant using express
 const app = express()
 
-var items = [
-	'Buy Food',
-	'Cook Food',
-	'Eat Food',
-	'kauf brot',
-	'duschen',
-	'burpees machen',
-	'sprachen lernen',
-]
-
 // 6 - Setup ejs, placed below app declared
 app.set('view engine', 'ejs')
-
-app.use(bodyParser.urlencoded({ extended: true }))
 
 // 5 - Creating the first GET route
 app.get('/', function (req, res) {
 	// user access the Home route
 	var today = new Date()
+	var currentDay = today.getDay()
+	var day = ''
 
-	var options = {
-		weekday: 'long',
-		day: 'numeric',
-		month: 'long',
+	switch (currentDay) {
+		case 0:
+			day = 'Sonntag'
+			break
+		case 1:
+			day = 'Montag'
+			break
+		case 2:
+			day = 'Dienstag'
+			break
+		case 3:
+			day = 'Mittwoch'
+			break
+		case 4:
+			day = 'Donnerstag'
+			break
+		case 5:
+			day = 'Freitag'
+			break
+		case 6:
+			day = 'Samstag'
+			break
+
+		default:
+			console.log('Error: current day is equal to: ' + currentDay)
 	}
 
-	var day = today.toLocaleDateString('en-US', options)
-
-	res.render('list', { kindOfDay: day, newListItems: items })
-})
-
-app.post('/', function (req, res) {
-	var item = req.body.newItem
-
-	items.push(item)
-
-	res.redirect('/')
+	res.render('list', { kindOfDay: day })
 })
 
 // 4 - Write App listen in port 3000
