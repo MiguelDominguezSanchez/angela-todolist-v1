@@ -22,7 +22,7 @@ app.get('/', function (req, res) {
 
 	switch (currentDay) {
 		case 0:
-			day = 'Sunday'
+			day = 'Sonntag'
 			break
 		case 1:
 			day = 'Montag'

@@ -6,8 +6,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>To Do List</title>
 </head>
+
 <body>
-  <h1>Es ist ein <%= kindOfDay %> !</h1>
+
+  <% if (kindOfDay === 'Donnerstag') { %>
+    <h1 style="color: purple" ><%= kindOfDay %> Aufgabenliste</h1>
+  <% } else { %>
+    <h1 style="color: blue" ><%= kindOfDay %> Aufgabenliste</h1>
+  <% } %>
+
 
 
 
