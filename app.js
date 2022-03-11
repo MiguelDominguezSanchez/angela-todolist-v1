@@ -19,7 +19,7 @@ let items = [
 	'burpees machen',
 	'sprachen lernen',
 ]
-
+let workItems = []
 // 6 - Setup ejs, placed below app declared
 app.set('view engine', 'ejs')
 
@@ -37,17 +37,36 @@ app.get('/', function (req, res) {
 		month: 'long',
 	}
 
-	let day = today.toLocaleDateString('en-US', options)
+	let day = today.toLocaleDateString('de-DE', options)
 
-	res.render('list', { kindOfDay: day, newListItems: items })
+	res.render('list', { listTitle: day, newListItems: items })
 })
 
 app.post('/', function (req, res) {
 	let item = req.body.newItem
 
-	items.push(item)
+	if (req.body.list === 'Arbeitsliste') {
+		workItems.push(item)
+		res.redirect('/arbeit')
+	} else {
+		items.push(item)
+		res.redirect('/')
+	}
+})
 
-	res.redirect('/')
+//  Provide a work todo list Aufgabenliste
+app.get('/arbeit', function (req, res) {
+	res.render('list', { listTitle: 'Arbeitsliste', newListItems: workItems })
+})
+
+app.get('/about', function (req, res) {
+	res.render('about')
+})
+
+app.post('/arbeit', function (req, res) {
+	let item = req.body.newItem
+	workItems.push(item)
+	res.redirect('/arbeit')
 })
 
 // 4 - Write App listen in port 3000
