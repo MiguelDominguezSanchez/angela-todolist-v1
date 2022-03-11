@@ -10,7 +10,7 @@ const bodyParser = require('body-parser') // Add Body Parser
 // 3 - Create app constant using express
 const app = express()
 
-var items = [
+let items = [
 	'Buy Food',
 	'Cook Food',
 	'Eat Food',
@@ -28,21 +28,21 @@ app.use(bodyParser.urlencoded({ extended: true }))
 // 5 - Creating the first GET route
 app.get('/', function (req, res) {
 	// user access the Home route
-	var today = new Date()
+	let today = new Date()
 
-	var options = {
+	let options = {
 		weekday: 'long',
 		day: 'numeric',
 		month: 'long',
 	}
 
-	var day = today.toLocaleDateString('en-US', options)
+	let day = today.toLocaleDateString('en-US', options)
 
 	res.render('list', { kindOfDay: day, newListItems: items })
 })
 
 app.post('/', function (req, res) {
-	var item = req.body.newItem
+	let item = req.body.newItem
 
 	items.push(item)
 
