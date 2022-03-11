@@ -6,20 +6,13 @@
 // 2 - Bring in Packages
 const express = require('express') // Add Express
 const bodyParser = require('body-parser') // Add Body Parser
+const date = require(__dirname + '/date.js')
 
 // 3 - Create app constant using express
 const app = express()
 
-let items = [
-	'Buy Food',
-	'Cook Food',
-	'Eat Food',
-	'kauf brot',
-	'duschen',
-	'burpees machen',
-	'sprachen lernen',
-]
-let workItems = []
+const items = ['Sport', 'Web Entwicklung', 'Grafik-Design', 'Sprachen lernen']
+const workItems = []
 // 6 - Setup ejs, placed below app declared
 app.set('view engine', 'ejs')
 
@@ -28,22 +21,13 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(express.static('public')) // specify  location of static files, public folder
 // 5 - Creating the first GET route
 app.get('/', function (req, res) {
-	// user access the Home route
-	let today = new Date()
-
-	let options = {
-		weekday: 'long',
-		day: 'numeric',
-		month: 'long',
-	}
-
-	let day = today.toLocaleDateString('de-DE', options)
+	const day = date.getDate()
 
 	res.render('list', { listTitle: day, newListItems: items })
 })
 
 app.post('/', function (req, res) {
-	let item = req.body.newItem
+	const item = req.body.newItem
 
 	if (req.body.list === 'Arbeitsliste') {
 		workItems.push(item)
