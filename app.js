@@ -24,7 +24,8 @@ let items = [
 app.set('view engine', 'ejs')
 
 app.use(bodyParser.urlencoded({ extended: true }))
-
+// tell express serve folder as static resource
+app.use(express.static('public')) // specify  location of static files, public folder
 // 5 - Creating the first GET route
 app.get('/', function (req, res) {
 	// user access the Home route
